@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -44,13 +45,19 @@ public class MarketPage extends BasePage {
     @FindBy(xpath = "//a[contains(@class, 'link i-bem')][contains(text(), 'Перейти ко всем фильтрам')]")
     WebElement extendedSearch;
 
+    @FindBy(xpath = "//span[contains(@class, 'button2__text')][contains(text(), 'Да, спасибо')]")
+    WebElement regionBtn;
+
     public MarketPage(){
         PageFactory.initElements(BaseSteps.getDriver(), this);
     }
 
     /** Переход в выбранную пользователем подкатегорию **/
     public void chooseCat(String submenu){
-        Actions actions = this.actions.moveToElement(electronikaCat);
+        Actions action = new Actions(BaseSteps.getDriver());
+        action.moveToElement(BaseSteps.getDriver().findElement(By.xpath("//body")),
+                1, 1).click().build().perform();
+        action.moveToElement(electronikaCat).perform();
         switch (submenu){
             case "Телевизоры":
                 waitAndClick(tVsSub);

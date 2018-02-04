@@ -10,9 +10,9 @@ import java.util.List;
 
 public class ResultsPage extends BasePage {
 
-    private String elementTitle;
+    public String elementTitle;
 
-    @FindBy(xpath = "//div[contains(@class,'n-snippet-card2')]//div[contains(@class, 'card2__title')]")
+    @FindBy(xpath = "//div[contains(@class, 'n-snippet')]/div[contains(@class, 'title')]")
     private List<WebElement> shownTargets;
 
     @FindBy(xpath = "//input[@id=\"header-search\"]")
@@ -21,21 +21,21 @@ public class ResultsPage extends BasePage {
     @FindBy(xpath = "//button[span='Найти']")
     WebElement searchBtn;
 
-    @FindBy(xpath = "//h1[contains(@class, 'title')]")
+    @FindBy(xpath = "//h1[@class='title title_size_28 title_bold_yes']")
     WebElement newSearchRes;
 
     public ResultsPage(){
         PageFactory.initElements(BaseSteps.getDriver(), this);
     }
 
-    public void checkElemetsAmount(String amount) {
-        Assert.assertEquals("Ожидаемое количество элементов - %s \n" +
-                        "Фактическое количество элементов - %s",
-                Integer.parseInt(amount), shownTargets.size());
+    public void checkElemetsAmount(Integer amount) {
+        Assert.assertTrue("Ожидаемое количество элементов - %d " +
+                        "\n Фактическое количество элементов - %d",
+                amount.equals(shownTargets.size()));
     }
 
-    public void getElementTitle(String number) {
-        elementTitle = shownTargets.get(Integer.parseInt(number)).getText();
+    public void getElementTitle(Integer number) {
+        elementTitle = shownTargets.get(number+1).getText();
     }
 
     public void startNewSearch() {

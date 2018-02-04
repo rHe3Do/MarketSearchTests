@@ -7,6 +7,8 @@ import pages.MainPage;
 import pages.MarketPage;
 import pages.ResultsPage;
 
+import java.util.ArrayList;
+
 public class ScenarioSteps {
 
     public MainPage mainPage = new MainPage();
@@ -14,7 +16,7 @@ public class ScenarioSteps {
     public ExtendedFilterPage extendedFilterPage = new ExtendedFilterPage();
     public ResultsPage resultsPage = new ResultsPage();
 
-    @Когда("^осуществлен переход в Яндекс.\"([^\"]*)\"$")
+    @Когда("^осуществлен переход в Яндекс.([^\"]*)$")
     public void goToMarket(String category){
         mainPage.goToCat(category);
     }
@@ -29,13 +31,13 @@ public class ScenarioSteps {
         marketPage.goToExtSearch();
     }
 
-    @Когда("^задан параметр поиска стоимость от \"([^\"]*)\" рублей")
-    public void setMinPrice(String price){
+    @Когда("^задан параметр поиска стоимость от (\\d+) рублей")
+    public void setMinPrice(Integer price){
         extendedFilterPage.setMinPriceSearch(price);
     }
 
     @Когда("^установлен фильтр по производителю: (.*)")
-    public void chooseManufact(@Delimiter(" и ") String[] company){
+    public void chooseManufact(@Delimiter(" и ") ArrayList<String> company){
         extendedFilterPage.setFilter(company);
     }
 
@@ -44,13 +46,14 @@ public class ScenarioSteps {
         extendedFilterPage.clickShowResultsBtn();
     }
 
-    @Когда("^проверено, что отображено \"([^\"]*)\" результатов")
-    public void checkResAmount(String amount){
+    @Когда("^проверено, что отображено (\\d+) результатов")
+    public void checkResAmount(Integer amount){
         resultsPage.checkElemetsAmount(amount);
     }
 
-    @Когда("^сохранено название первого результата и осуществлен новый поиск по этому названию")
-    public void startNewSearch(){
+    @Когда("^сохранено название результата № (\\d+) и осуществлен новый поиск по этому названию")
+    public void startNewSearch(Integer number){
+        resultsPage.getElementTitle(number);
         resultsPage.startNewSearch();
     }
 

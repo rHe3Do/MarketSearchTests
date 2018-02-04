@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import steps.BaseSteps;
 
+import java.util.ArrayList;
+
 public class ExtendedFilterPage extends BasePage {
 
     /**
@@ -17,7 +19,7 @@ public class ExtendedFilterPage extends BasePage {
     /**
      * Кнопка Показать всё на случай, если производителей нет в отображаемом списке
      */
-    @FindBy(xpath = "//button[@role=\"button\"]//span[@class=\"button__text\"][contains(text(), 'Показать всё')]")
+    @FindBy(xpath = "//button[contains(@class,'button_js_inited')]")
     WebElement showAllBtn;
 
     /**
@@ -35,8 +37,8 @@ public class ExtendedFilterPage extends BasePage {
      * @param price принимает число в виде String и вносит в поле минимальной стоимости диапазона поиска
      *              допустимый ввод - целое число
      */
-    public void setMinPriceSearch(String price) {
-        fillField(minPriceSearch, price);
+    public void setMinPriceSearch(Integer price) {
+        fillField(minPriceSearch, price.toString());
     }
 
     /**
@@ -45,7 +47,7 @@ public class ExtendedFilterPage extends BasePage {
      *                     в списке на веб-странице и иметь товар, подходящий под остальные установленные
      *                     условия поиска
      */
-    public void setFilter(String... manufacturer) {
+    public void setFilter(ArrayList<String> manufacturer) {
         waitAndClick(showAllBtn);
         for (String man: manufacturer) {
             try {
