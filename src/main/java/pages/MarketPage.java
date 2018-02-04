@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import steps.BaseSteps;
@@ -49,12 +50,14 @@ public class MarketPage extends BasePage {
 
     /** Переход в выбранную пользователем подкатегорию **/
     public void chooseCat(String submenu){
-        actions.moveToElement(electronikaCat);
+        Actions actions = this.actions.moveToElement(electronikaCat);
         switch (submenu){
             case "Телевизоры":
                 waitAndClick(tVsSub);
+                break;
             case "Наушники":
                 waitAndClick(headphonesSub);
+                break;
             default:
                 throw new AssertionError("Кнопка '"+submenu+"' отсутствует на странице");
         }

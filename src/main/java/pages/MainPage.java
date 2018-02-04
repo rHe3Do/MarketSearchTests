@@ -47,6 +47,7 @@ public class MainPage extends BasePage {
         switch (category){
             case "Маркет":
                 waitAndClick(market);
+                break;
             default:
                 throw new AssertionError("Кнопка '"+category+"' отсутствует на странице");
         }

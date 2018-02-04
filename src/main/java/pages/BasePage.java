@@ -39,6 +39,7 @@ public class BasePage  {
         element.click();
     }
 
+    /*
     public void swapToNextPage(){
         String currentWindow = BaseSteps.getDriver().getWindowHandle();
         for (String window : BaseSteps.getDriver().getWindowHandles()) {
@@ -47,5 +48,6 @@ public class BasePage  {
             }
         }
     }
+    */
 
 }

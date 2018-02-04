@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ResultsPage extends BasePage {
 
-    public String elementTitle;
+    private String elementTitle;
 
     @FindBy(xpath = "//div[contains(@class,'n-snippet-card2')]//div[contains(@class, 'card2__title')]")
     private List<WebElement> shownTargets;
@@ -38,9 +38,14 @@ public class ResultsPage extends BasePage {
         elementTitle = shownTargets.get(Integer.parseInt(number)).getText();
     }
 
-    public void startNewSearch(String value) {
-        fillField(searchField, value);
+    public void startNewSearch() {
+        fillField(searchField, elementTitle);
         waitAndClick(searchBtn);
     }
 
+    public void checkElementValue(){
+        Assert.assertEquals("Ожидаемый результат поиска - %s \n" +
+                        "Фактический результат поиска - %s",
+                elementTitle, newSearchRes.getText());
+    }
 }
